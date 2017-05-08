@@ -1,14 +1,14 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.zainuel.services.Admin.ProjectsAdminFragment">
-
+    tools:context="com.example.zainuel.services.Admin.OngoingProjectsAdminFragment">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/admin_proj_lv"/>
+        android:id="@+id/my_proj_lv"
+        />
 
     <TextView
         android:layout_width="match_parent"
@@ -18,5 +18,4 @@
         android:textAlignment="center"
         android:textSize="24sp"/>
 
-
-</LinearLayout>
+</FrameLayout>

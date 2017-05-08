@@ -22,13 +22,13 @@ public interface GetUsersContract {
     }
 
     interface Presenter {
-        void getAllUsers();
+        void getAllUsers(int type);
 
         void getChatUsers();
     }
 
     interface Interactor {
-        void getAllUsersFromFirebase();
+        void getAllUsersFromFirebase(int type);
 
         void getChatUsersFromFirebase();
     }

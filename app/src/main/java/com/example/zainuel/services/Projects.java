@@ -1,14 +1,18 @@
 package com.example.zainuel.services;
 
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.zainuel.services.Admin.ProjectRequirementsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +30,9 @@ public class Projects extends Fragment {
     FirebaseAuth mAuth;
     ValueEventListener listener;
     ListView lv;
-    MyProjectsListViewAdapter adapter;
+    ProjectsListViewAdapter adapter;
+
+    ProgressDialog pd;
 
     ArrayList<ProjectObj> projectObjs;
     ArrayList<String> pDates;
@@ -48,7 +54,12 @@ public class Projects extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        pd = new ProgressDialog(getContext());
+        pd.setMessage("Loading ...");
+        pd.show();
+
         lv = (ListView) view.findViewById(R.id.my_proj_lv);
+        final View et = view.findViewById(R.id.et);
 
 
         pDates = new ArrayList<>();
@@ -62,8 +73,8 @@ public class Projects extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    for (DataSnapshot gchild : child.getChildren()) {
+
+                    for (DataSnapshot gchild : dataSnapshot.getChildren()) {
                         ProjectObj pro = gchild.getValue(ProjectObj.class);
                         String dt = gchild.getKey();
 
@@ -71,10 +82,25 @@ public class Projects extends Fragment {
                         pDates.add(dt);
 
                     }
-                }
 
-                adapter = new MyProjectsListViewAdapter(projectObjs, getContext());
+
+                adapter = new ProjectsListViewAdapter(projectObjs, getContext());
                 lv.setAdapter(adapter);
+                lv.setEmptyView(et);
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        ProjectObj obj = projectObjs.get(position);
+
+
+                        Intent intent = new Intent(getContext(),ProjectRequirementsActivity.class);
+                        intent.putExtra("uid",obj.getUid());
+                        intent.putExtra("date",obj.getTime()+","+obj.getDate());
+                        startActivity(intent);
+
+                    }
+                });
+                pd.cancel();
 
 
             }

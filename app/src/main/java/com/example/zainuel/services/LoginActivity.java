@@ -18,6 +18,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.crazyhitty.chdev.ks.firebasechat.utils.Constants;
+import com.example.zainuel.services.Admin.AdminHomeActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -54,7 +56,7 @@ public class LoginActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDB;
     private DatabaseReference mUsersRef;
-    private DatabaseReference mScoreRef;
+    private DatabaseReference mSpRef;
     DatabaseReference mNewUserRef;
     private View signInHide;
 
@@ -73,8 +75,10 @@ public class LoginActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         checkPlayServices();
         mDB = FirebaseDatabase.getInstance();
-        mUsersRef = mDB.getReference("users");
-        checkLoginStatus();
+        mUsersRef = mDB.getReference(Constants.ARG_USERS);
+        mSpRef = mDB.getReference(Constants.ARG_SP);
+
+
 
         signInHide = findViewById(R.id.sign_in_hide);
 
@@ -99,17 +103,6 @@ public class LoginActivity extends AppCompatActivity
         mProgressView = findViewById(R.id.login_progress);
     }
 
-    private void checkLoginStatus() {
-        status = getSharedPreferences("login_status", Context.MODE_PRIVATE);
-        boolean logIn = status.getBoolean("in", false);
-        if (logIn) {
-
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                //Intent intent = new Intent(LoginActivity.this,AdminHomeActivity.class);
-                startActivity(intent);
-                finish();
-        }
-    }
 
 
     @Override
@@ -177,7 +170,13 @@ public class LoginActivity extends AppCompatActivity
                             status.edit().putBoolean("in", true).apply();
 
 
-                            DatabaseReference mNewUserRef = mDB.getReference("users");
+                            final int  type = getIntent().getIntExtra("type",3);
+
+                            if(type == 1) {
+                                mNewUserRef = mDB.getReference("users");
+                            }else if(type == 2) {
+                                mNewUserRef = mDB.getReference("sp");
+                            }
 
                             listener = new ValueEventListener() {
                                 @Override
@@ -193,20 +192,45 @@ public class LoginActivity extends AppCompatActivity
                                         }
                                     }
 
+
                                     if(!key)
                                     {
-                                        createUserNode();
+
+                                        if(type == 1) {
+                                            createUserNode();
+                                        }else if(type == 2) {
+                                            createSpNode();
+                                        }
+
+
 
 
                                     }
 
 
-                                        //Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                                    if(type == 1)
+                                    {
+
+                                        SharedPreferences tp = getSharedPreferences("type",Context.MODE_PRIVATE);
+                                        tp.edit().putInt("type",1).apply();
 
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                         showProgress(false);
                                         finish();
                                         startActivity(intent);
+
+                                    } else if(type == 2)
+                                    {
+                                        SharedPreferences tp = getSharedPreferences("type",Context.MODE_PRIVATE);
+                                        tp.edit().putInt("type",2).apply();
+
+
+                                        Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                                        showProgress(false);
+                                        finish();
+                                        startActivity(intent);
+
+                                    }
 
 
                                 }
@@ -241,6 +265,22 @@ public class LoginActivity extends AppCompatActivity
         mUsersRef.child(uid).child("name").setValue(name);
         mUsersRef.child(uid).child("email").setValue(email);
         mUsersRef.child(uid).child("pURL").setValue(pURL);
+        mUsersRef.child(uid).child("uid").setValue(uid);
+    }
+
+    private void createSpNode()
+    {
+        DatabaseReference mSpRef;
+        mSpRef= mDB.getReference("sp");
+        String uid = mAuth.getCurrentUser().getUid();
+        String name = mAuth.getCurrentUser().getDisplayName();
+        String email = mAuth.getCurrentUser().getEmail();
+        String pURL = mAuth.getCurrentUser().getPhotoUrl().toString();
+        mSpRef.child(uid).child("name").setValue(name);
+        mSpRef.child(uid).child("email").setValue(email);
+        mSpRef.child(uid).child("pURL").setValue(pURL);
+        mSpRef.child(uid).child("uid").setValue(uid);
+        mSpRef.child(uid).child("rating").setValue("0");
     }
 
 

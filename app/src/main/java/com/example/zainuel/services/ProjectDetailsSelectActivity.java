@@ -100,22 +100,40 @@ public class ProjectDetailsSelectActivity extends AppCompatActivity implements
     if(v == next)
     {
         try {
-            mUserRef.child("acRepair").child(txtTime.getText() + "," + txtDate.getText()).
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
                     child("address").setValue(txtAddress.getText().toString());
-            mUserRef.child("acRepair").child(txtTime.getText() + "," + txtDate.getText()).
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
                     child("assignedEmployee").setValue("-");
-            mUserRef.child("acRepair").child(txtTime.getText() + "," + txtDate.getText()).
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
                     child("address").setValue(txtAddress.getText().toString());
-            mUserRef.child("acRepair").child(txtTime.getText() + "," + txtDate.getText()).
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
                     child("employeeRating").setValue("-");
-            mUserRef.child("acRepair").child(txtTime.getText() + "," + txtDate.getText()).
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
                     child("name").setValue("Air Conditioner Repair");
-            mUserRef.child("acRepair").child(txtTime.getText() + "," + txtDate.getText()).
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
                     child("status").setValue("Request Under Process");
-            mUserRef.child("acRepair").child(txtTime.getText() + "," + txtDate.getText()).
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
                     child("time").setValue(txtTime.getText().toString());
-            mUserRef.child("acRepair").child(txtTime.getText() + "," + txtDate.getText()).
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
                     child("date").setValue(txtDate.getText().toString());
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
+                    child("type").setValue("acRepair");
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
+                    child("uid").setValue(mAuth.getCurrentUser().getUid());
+
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
+                    child("questions").child(getIntent().getStringExtra("q1")).
+                    setValue(getIntent().getStringExtra("a1"));
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
+                    child("questions").child(getIntent().getStringExtra("q2")).
+                    setValue(getIntent().getStringExtra("a2"));
+            mUserRef.child(txtTime.getText() + "," + txtDate.getText()).
+                    child("questions").child(getIntent().getStringExtra("q3")).
+                    setValue(getIntent().getStringExtra("a3"));
+
+
+
+
 
 
 
@@ -132,6 +150,13 @@ public class ProjectDetailsSelectActivity extends AppCompatActivity implements
                     child("time").setValue(txtTime.getText().toString());
             mProjectRef.child("acRepair").child(mAuth.getCurrentUser().getUid()).child(txtTime.getText() + "," + txtDate.getText()).
                     child("date").setValue(txtDate.getText().toString());
+            mProjectRef.child("acRepair").child(mAuth.getCurrentUser().getUid()).child(txtTime.getText() + "," + txtDate.getText()).
+                    child("type").setValue("acRepair");
+            mProjectRef.child("acRepair").child(mAuth.getCurrentUser().getUid()).child(txtTime.getText() + "," + txtDate.getText()).
+                    child("uid").setValue(mAuth.getCurrentUser().getUid());
+
+            Toast.makeText(ProjectDetailsSelectActivity.this,"Project Created", Toast.LENGTH_SHORT).show();
+            finish();
 
         }
         catch (Exception e)

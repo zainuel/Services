@@ -1,7 +1,9 @@
 package com.example.zainuel.services.Admin;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.zainuel.services.CircleImageView;
 import com.example.zainuel.services.R;
+import com.example.zainuel.services.TypeSelectionActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -25,6 +28,8 @@ public class ProfileAdminFragment extends Fragment {
     CircleImageView ProfilePic;
     FirebaseAuth mAuth;
     TextView username;
+    TextView useremail;
+    Button logout;
 
 
     public ProfileAdminFragment() {
@@ -43,6 +48,19 @@ public class ProfileAdminFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        logout = (Button) view.findViewById(R.id.logout_but_admin);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                SharedPreferences type = getActivity().getSharedPreferences("type", Context.MODE_PRIVATE);
+                type.edit().remove("type").apply();
+                Intent intent=new Intent(getContext(), TypeSelectionActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
         mAuth = FirebaseAuth.getInstance();
         ProfilePic = (CircleImageView) view.findViewById(R.id.user_image_admin);
         UploadDocs = (Button) view.findViewById(R.id.upload_docs_btn_admin_profile);
@@ -55,7 +73,9 @@ public class ProfileAdminFragment extends Fragment {
             }
         });
 
-        username = (TextView) view.findViewById(R.id.username_admin);
+
+
+        username = (TextView) view.findViewById(R.id.user_name_user);
         username.setText(mAuth.getCurrentUser().getDisplayName());
         try{
             String photoURL = mAuth.getCurrentUser().getPhotoUrl().toString() ;

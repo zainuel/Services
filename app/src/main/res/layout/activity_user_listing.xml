@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.crazyhitty.chdev.ks.firebasechat.ui.activities.LoginActivity">
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -24,29 +23,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:id="@+id/content_users"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout_user_listing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:tabBackground="?attr/colorPrimary"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/cyan_A100"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/grey_100"
-            app:tabTextColor="@color/grey_300" />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager_user_listing"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

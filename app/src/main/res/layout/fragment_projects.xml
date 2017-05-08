@@ -10,4 +10,12 @@
         android:id="@+id/my_proj_lv"
         />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nothing Here !!!"
+        android:id="@+id/et"
+        android:textAlignment="center"
+        android:textSize="24sp"/>
+
 </LinearLayout>

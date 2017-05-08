@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.zainuel.services.QuestionsActivity">
+
+    <com.kofigyan.stateprogressbar.StateProgressBar
+        android:id="@+id/spb_questions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:spb_currentStateNumber="one"
+        app:spb_maxStateNumber="three"
+        app:spb_stateBackgroundColor="#BDBDBD"
+        app:spb_stateForegroundColor="#009688"
+        app:spb_stateNumberBackgroundColor="#808080"
+        app:spb_stateNumberForegroundColor="#eeeeee"
+        app:spb_currentStateDescriptionColor="#009688"
+        app:spb_stateDescriptionColor="#808080"
+        app:spb_animateToCurrentProgressState="true"
+        app:spb_checkStateCompleted="true"/>
+
+    <TextView
+        android:id="@+id/q_questions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spb_questions"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="33dp"
+        android:minHeight="50dp"
+        android:text="Questions"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rg_questions"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/q_questions"
+        android:layout_alignStart="@+id/q_questions">
+
+        <RadioButton
+            android:id="@+id/rb1_questions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RadioButton" />
+
+        <RadioButton
+            android:id="@+id/rb2_questions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RadioButton" />
+
+        <RadioButton
+            android:id="@+id/rb3_questions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RadioButton" />
+
+
+        <RadioButton
+            android:id="@+id/rb4_questions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="RadioButton" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/but_questions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/q_questions"
+        android:layout_below="@+id/rg_questions"
+        android:layout_marginEnd="31dp"
+        android:layout_marginTop="50dp"
+        android:text="Next" />
+
+</RelativeLayout>

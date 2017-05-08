@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if(position==7){
-                    Intent iinent= new Intent(MainActivity.this,ProjectDetailsSelectActivity.class);
+                    Intent iinent= new Intent(MainActivity.this,QuestionsActivity.class);
                     startActivity(iinent);
                 }
 

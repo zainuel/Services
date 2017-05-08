@@ -14,14 +14,15 @@ public class GetUsersPresenter implements GetUsersContract.Presenter, GetUsersCo
     private GetUsersContract.View mView;
     private GetUsersInteractor mGetUsersInteractor;
 
+
     public GetUsersPresenter(GetUsersContract.View view) {
         this.mView = view;
         mGetUsersInteractor = new GetUsersInteractor(this);
     }
 
     @Override
-    public void getAllUsers() {
-        mGetUsersInteractor.getAllUsersFromFirebase();
+    public void getAllUsers(int type) {
+        mGetUsersInteractor.getAllUsersFromFirebase(type);
     }
 
     @Override

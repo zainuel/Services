@@ -1,6 +1,5 @@
 package com.example.zainuel.services.Admin;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.crazyhitty.chdev.ks.firebasechat.ui.activities.UserListingActivity;
 import com.example.zainuel.services.R;
 
 public class AdminHomeActivity extends AppCompatActivity {
@@ -24,13 +22,14 @@ public class AdminHomeActivity extends AppCompatActivity {
                 case R.id.profile_admin_bnav:
                     replaceFragments(ProfileAdminFragment.class,true);
                     return true;
+                case R.id.ong_projects_admin_bnav:
+                    replaceFragments(OngoingProjectsAdminFragment.class,true);
+                    return true;
                 case R.id.projects_admin_bnav:
                     replaceFragments(ProjectsAdminFragment.class,true);
                     return true;
                 case R.id.help_admin_bnav:
-                    //replaceFragments(HelpFragment.class,true);
-                    Intent i= new Intent(AdminHomeActivity.this, UserListingActivity.class);
-                    startActivity(i);
+                    replaceFragments(HelpFragment.class,true);
                     return true;
             }
             return false;
@@ -45,6 +44,7 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.admin_bnav);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        replaceFragments(ProjectsAdminFragment.class,true);
     }
 
 

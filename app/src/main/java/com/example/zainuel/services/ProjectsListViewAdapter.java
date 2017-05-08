@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Created by reddy on 27/4/17.
  */
 
-public class MyProjectsListViewAdapter extends ArrayAdapter<ProjectObj> {
+public class ProjectsListViewAdapter extends ArrayAdapter<ProjectObj> {
 
     ArrayList<ProjectObj> dataset;
     Context mContext;
@@ -27,7 +27,7 @@ public class MyProjectsListViewAdapter extends ArrayAdapter<ProjectObj> {
         TextView empRating;
     }
 
-    public MyProjectsListViewAdapter(ArrayList<ProjectObj> data, Context context) {
+    public ProjectsListViewAdapter(ArrayList<ProjectObj> data, Context context) {
         super(context, R.layout.my_projects_lv_temp, data);
         this.dataset = data;
         this.mContext=context;

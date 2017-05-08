@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.zainuel.services.ProjectObj;
+import com.example.zainuel.services.ProjectsListViewAdapter;
 import com.example.zainuel.services.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,27 +25,22 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class ProjectsAdminFragment extends Fragment implements AdminProjectsListViewAdapter.customButtonListener {
+public class OngoingProjectsAdminFragment extends Fragment {
 
     FirebaseDatabase mDb;
     DatabaseReference mRef;
-    DatabaseReference mUserRef;
     FirebaseAuth mAuth;
     ValueEventListener listener;
     ListView lv;
-    AdminProjectsListViewAdapter adapter;
-
-    AdminProjectsListViewAdapter.customButtonListener clistener;
-
-
-
+    ProjectsListViewAdapter adapter;
 
     ProgressDialog pd;
+
     ArrayList<ProjectObj> projectObjs;
+    ArrayList<String> pDates;
 
 
-
-    public ProjectsAdminFragment() {
+    public OngoingProjectsAdminFragment() {
         // Required empty public constructor
     }
 
@@ -54,7 +49,7 @@ public class ProjectsAdminFragment extends Fragment implements AdminProjectsList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_projects_admin, container, false);
+        return inflater.inflate(R.layout.fragment_ongoing_projects_admin, container, false);
     }
 
     @Override
@@ -65,53 +60,40 @@ public class ProjectsAdminFragment extends Fragment implements AdminProjectsList
         pd.setMessage("Loading ...");
         pd.show();
 
-        clistener = this;
+        lv = (ListView) view.findViewById(R.id.my_proj_lv);
 
         final View et = view.findViewById(R.id.et);
 
 
-
-
-
-        lv = (ListView) view.findViewById(R.id.admin_proj_lv);
-
-
+        pDates = new ArrayList<>();
         projectObjs = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
         mDb = FirebaseDatabase.getInstance();
-        mRef = mDb.getReference("openProjects");
+        mRef = mDb.getReference("sp/" + mAuth.getCurrentUser().getUid() + "/projects");
         listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                projectObjs.clear();
 
 
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                for (DataSnapshot gchild : dataSnapshot.getChildren()) {
+                    ProjectObj pro = gchild.getValue(ProjectObj.class);
+                    String dt = gchild.getKey();
 
-                    for (DataSnapshot gchild : child.getChildren()) {
+                    projectObjs.add(pro);
+                    pDates.add(dt);
 
-                        for (DataSnapshot g1child : gchild.getChildren()) {
-
-
-                            ProjectObj pro = g1child.getValue(ProjectObj.class);
-                            projectObjs.add(pro);
-
-
-                        }
-
-                    }
                 }
 
-                adapter = new AdminProjectsListViewAdapter(projectObjs, getContext());
-                adapter.setCustomButtonListner(clistener);
 
-
+                adapter = new ProjectsListViewAdapter(projectObjs, getContext());
+                lv.setAdapter(adapter);
+                lv.setEmptyView(et);
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                       ProjectObj obj = projectObjs.get(position);
+                        ProjectObj obj = projectObjs.get(position);
 
 
                         Intent intent = new Intent(getContext(),ProjectRequirementsActivity.class);
@@ -121,9 +103,6 @@ public class ProjectsAdminFragment extends Fragment implements AdminProjectsList
 
                     }
                 });
-
-                lv.setAdapter(adapter);
-                lv.setEmptyView(et);
                 pd.cancel();
 
 
@@ -136,28 +115,5 @@ public class ProjectsAdminFragment extends Fragment implements AdminProjectsList
         };
 
         mRef.addListenerForSingleValueEvent(listener);
-    }
-
-
-    @Override
-    public void onButtonClickListner(int position) {
-        ProjectObj obj = projectObjs.get(position);
-
-        String key = obj.getTime()+","+obj.getDate();
-        mUserRef= mDb.getReference("users/"+obj.getUid()+"/projects/open/"+key);
-        mUserRef.child("assignedEmployee").setValue(mAuth.getCurrentUser().getDisplayName());
-        mUserRef.child("status").setValue("Employee has been assigned");
-        mUserRef.child("employeeRating").setValue("1");
-
-        mRef.child(obj.getType()+"/"+obj.getUid()+"/"+key).removeValue();
-
-        mRef = mDb.getReference("sp/"+mAuth.getCurrentUser().getUid()+"/projects/"+key);
-        obj.setAssignedEmployee(mAuth.getCurrentUser().getDisplayName());
-        obj.setStatus("Employee has been assigned");
-        obj.setEmployeeRating("1");
-        mRef.setValue(obj);
-
-        Toast.makeText(getContext(),"Project Takeup Successful",Toast.LENGTH_SHORT).show();
-
     }
 }

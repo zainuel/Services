@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/help_admin_bnav"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
-
-
 
     <item
         android:id="@+id/projects_admin_bnav"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:title="New Projects" />
+
+    <item
+        android:id="@+id/ong_projects_admin_bnav"
+        android:icon="@drawable/ic_flight_takeoff_black_24dp"
+        android:title="Current Projects" />
+
+
 
     <item
         android:id="@+id/profile_admin_bnav"
         android:icon="@drawable/account_key"
 
         android:title="@string/title_notifications"  />
+
+    <item
+        android:id="@+id/help_admin_bnav"
+        android:icon="@drawable/ic_menu_black_24dp"
+        android:title="Menu" />
+
+
+
+
+
+
 
 </menu>
 

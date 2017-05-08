@@ -31,8 +31,19 @@ public class GetUsersInteractor implements GetUsersContract.Interactor {
 
 
     @Override
-    public void getAllUsersFromFirebase() {
-        FirebaseDatabase.getInstance().getReference().child(Constants.ARG_USERS).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getAllUsersFromFirebase(int type) {
+
+        String tp = null;
+
+        if(type == 1)
+        {
+            tp = Constants.ARG_SP;
+        } else if (type == 2)
+        {
+            tp = Constants.ARG_USERS;
+        }
+
+        FirebaseDatabase.getInstance().getReference().child(tp).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> dataSnapshots = dataSnapshot.getChildren().iterator();

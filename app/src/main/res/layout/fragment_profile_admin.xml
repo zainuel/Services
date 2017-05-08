@@ -10,19 +10,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/logout_but_admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="Log out" />
+
         <com.example.zainuel.services.CircleImageView
             android:id="@+id/user_image_admin"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:adjustViewBounds="false"
             android:cropToPadding="false"
             android:paddingBottom="10dp"
-            android:src="@drawable/ic_account_circle_black_48dp" />
+            android:src="@drawable/ic_account_circle_black_48dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
-            android:id="@+id/username_admin"
+            android:id="@+id/user_name_user"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -40,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/username_admin"
+            android:layout_below="@+id/user_name_user"
             android:layout_marginTop="55dp"
             android:padding="5dp"
             android:text="Upload Documents" />

@@ -29,6 +29,7 @@ public class Profile extends Fragment {
     TextView useremail;
     Button chat;
     Button logout;
+    Button fb;
 
     public Profile() {
         // Required empty public constructor
@@ -72,6 +73,17 @@ public class Profile extends Fragment {
                 Intent intent=new Intent(getContext(), TypeSelectionActivity.class);
                 startActivity(intent);
                 getActivity().finish();
+            }
+        });
+
+        fb = (Button) view.findViewById(R.id.fb_but_user);
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(getContext(),FeedbackActivity.class);
+                startActivity(intent);
+
             }
         });
 

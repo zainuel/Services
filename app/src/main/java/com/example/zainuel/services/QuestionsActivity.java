@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kofigyan.stateprogressbar.StateProgressBar;
 
@@ -84,6 +85,7 @@ public class QuestionsActivity extends AppCompatActivity implements RadioGroup.O
                     if(rb1.isChecked())
                     {
                         selected.add(rb1s);
+                        Toast.makeText(QuestionsActivity.this, ""+question, Toast.LENGTH_SHORT).show();
                     } else if(rb2.isChecked())
                     {
                         selected.add(rb2s);
@@ -110,6 +112,7 @@ public class QuestionsActivity extends AppCompatActivity implements RadioGroup.O
                     stateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
 
 
+                    Toast.makeText(QuestionsActivity.this, "b"+question, Toast.LENGTH_SHORT).show();
 
 
 
@@ -119,9 +122,11 @@ public class QuestionsActivity extends AppCompatActivity implements RadioGroup.O
 
                     if(rb1.isChecked())
                     {
+                        Toast.makeText(QuestionsActivity.this, ""+question, Toast.LENGTH_SHORT).show();
                         selected.add(rb1s);
                     } else if(rb2.isChecked())
                     {
+                        Toast.makeText(QuestionsActivity.this, ""+question, Toast.LENGTH_SHORT).show();
                         selected.add(rb2s);
 
                     } else if(rb3.isChecked())
@@ -146,6 +151,7 @@ public class QuestionsActivity extends AppCompatActivity implements RadioGroup.O
                     rb4.setText(q3[3]);
 
                     question = 3;
+                    Toast.makeText(QuestionsActivity.this, "b"+question, Toast.LENGTH_SHORT).show();
 
                     stateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
 
@@ -154,9 +160,11 @@ public class QuestionsActivity extends AppCompatActivity implements RadioGroup.O
 
                     if(rb1.isChecked())
                     {
+                        Toast.makeText(QuestionsActivity.this, ""+question, Toast.LENGTH_SHORT).show();
                         selected.add(rb1s);
                     } else if(rb2.isChecked())
                     {
+                        Toast.makeText(QuestionsActivity.this, ""+question, Toast.LENGTH_SHORT).show();
                         selected.add(rb2s);
 
                     } else if(rb3.isChecked())
@@ -208,24 +216,16 @@ public class QuestionsActivity extends AppCompatActivity implements RadioGroup.O
         if(checkedId == rb1.getId())
         {
             rb1s = rb1.getText().toString();
-        }
-
-        if(checkedId == rb2.getId())
+        }else if(checkedId == rb2.getId())
         {
             rb2s = rb2.getText().toString();
-        }
-
-        if(checkedId == rb3.getId())
+        }else if(checkedId == rb3.getId())
         {
             rb3s = rb3.getText().toString();
-        }
-
-        if(checkedId == rb4.getId())
+        }else if(checkedId == rb4.getId())
         {
             rb4s = rb4.getText().toString();
         }
-
-
 
     }
 }

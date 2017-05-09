@@ -76,6 +76,19 @@
            android:layout_marginBottom="25dp"
            android:text="log out" />
 
+
+       <Button
+           android:id="@+id/fb_but_user"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerHorizontal="true"
+           android:layout_below="@id/logout_but_user"
+           android:layout_marginBottom="25dp"
+           android:text="Feedback" />
+
+
+
+
    </RelativeLayout>
 
 

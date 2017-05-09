@@ -43,7 +43,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".QuestionsActivity" />
-        <activity android:name=".Admin.ProjectRequirementsActivity"></activity>
+        <activity android:name=".Admin.ProjectRequirementsActivity" />
+        <activity android:name=".FeedbackActivity"></activity>
     </application>
 
 </manifest>
